@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from tracker.datautil import read_storm, transform, transform_cds
+import tqdm
 
 
 class Combined(Dataset):
@@ -46,13 +47,12 @@ class Combined(Dataset):
         pre_year = 1980
         graph = transform_cds(f'{self.cds}/1980_.nc')
         i = 0
-        for _time, _lat, _lon in ref:
+        for _time, _lat, _lon in tqdm.notebook.tqdm(ref):
             if _time[0] != pre_year:
                 graph = transform_cds(f'{self.cds}/{_time[0]}_.nc')
                 pre_year = _time[0]
             i = i+1
             image = graph[_time[1], :, 70-_lat-12:70-_lat+12, _lon-11-120:_lon+13-120]
-            print(f'index{i}/{len(ref)}')
             x1[i-1] = image
 
             self.scaler_min = np.fmin(self.scaler_min, np.amin(image, axis=(1,2)))
