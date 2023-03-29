@@ -85,7 +85,7 @@ def get_time(time_64):
     _month = int(str(time_64)[5:7])
     _day = int(str(time_64)[8:10])
     _hour = int(str(time_64)[11:13])
-    start_year = _year if _year < 2005 else _year - (_year - 2005) % 3
+    start_year = _year
     return int(start_year), int((dt.datetime(year=_year, month=_month, day=_day, hour=_hour)
                                  - dt.datetime(year=start_year, month=1, day=1, hour=0)) / dt.timedelta(hours=3))
 

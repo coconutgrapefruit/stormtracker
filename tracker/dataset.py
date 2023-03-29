@@ -41,7 +41,7 @@ class Combined(Dataset):
         self.scaler = scaler
         x2, y, ref = transform(storm_data, self.seq_len)
 
-        # CDS data
+        # CDS(ERA5) data
         x1 = np.ones((len(ref), 9, 24, 24))
         pre_year = 1980
         graph = transform_cds(f'{self.cds}/1980_.nc')
